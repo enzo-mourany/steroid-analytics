@@ -1,7 +1,6 @@
 import { EventPayload, IgnoreReason, CustomEventPayload, IdentifyEventPayload, PaymentEventPayload } from '../types/event';
 import { Config } from '../types/config';
 import { BotDetectionService } from './botDetection';
-import { URL } from 'url';
 
 export class ValidationService {
   private botDetection: BotDetectionService;

@@ -6,7 +6,6 @@ import { DomainAuthService } from '../services/domainAuth';
 import { ThrottlingService } from '../services/throttling';
 import { EventRepository } from '../database/schema';
 import { generateRequestId } from '../utils/uuid';
-import { URL } from 'url';
 import { Config } from '../types/config';
 
 export function createEventsRouter(
