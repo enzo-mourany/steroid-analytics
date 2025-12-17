@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Steroid Analytics</title>
+</head>
+<body>
+    <h1>Test Steroid Analytics</h1>
+    
+    <p>Ouvrez la console pour voir les logs.</p>
+    
+    <h2>Actions de test</h2>
+    <button onclick="testCustomEvent()">Tester événement custom</button>
+    <button onclick="testIdentify()">Tester identify</button>
+    <button onclick="testPayment()">Tester payment</button>
+    <button onclick="testExternalLink()">Tester external link</button>
+    
+    <hr>
+    <h2>Script intégré (remplacez les paramètres)</h2>
+    <pre style="background: #f5f5f5; padding: 10px;">
+&lt;script&gt;
+(function(w,d,s){s=d.createElement('script');s.src='http://localhost:8080/dist/steroid-analytics.js?w=test-site&d=localhost&u=http://localhost:3000';s.async=1;d.head.appendChild(s)})(window,document);
+&lt;/script&gt;
+    </pre>
+
+    <!-- Snippet à coller (modifier les paramètres selon votre setup) -->
+    <script>
+    (function(w,d,s){s=d.createElement('script');s.src='http://localhost:8080/dist/steroid-analytics.js?w=test-site&d=localhost&u=http://localhost:3000';s.async=1;d.head.appendChild(s)})(window,document);
+    </script>
+
+    <script>
+        function testCustomEvent() {
+            if (window.steroid) {
+                window.steroid.track('button_click', {
+                    button: 'test_custom',
+                    plan: 'premium',
+                    test: true
+                });
+                console.log('✅ Événement custom envoyé');
+            } else {
+                console.error('❌ window.steroid non disponible');
+            }
+        }
+
+        function testIdentify() {
+            if (window.steroid) {
+                window.steroid.identify('user-123', {
+                    name: 'John Doe',
+                    email: 'john@example.com'
+                });
+                console.log('✅ Événement identify envoyé');
+            } else {
+                console.error('❌ window.steroid non disponible');
+            }
+        }
+
+        function testPayment() {
+            if (window.steroid) {
+                window.steroid.trackPayment({
+                    email: 'customer@example.com',
+                    payment_id: 'pay_' + Date.now(),
+                    amount: 99.99,
+                    currency: 'USD'
+                });
+                console.log('✅ Événement payment envoyé');
+            } else {
+                console.error('❌ window.steroid non disponible');
+            }
+        }
+
+        function testExternalLink() {
+            if (window.steroid) {
+                window.steroid.trackExternalLink('https://example.com', 'Test Link');
+                console.log('✅ Événement external_link envoyé');
+            } else {
+                console.error('❌ window.steroid non disponible');
+            }
+        }
+
+        // Attendre que le script soit chargé
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (window.steroid) {
+                    console.log('✅ Steroid Analytics chargé');
+                } else {
+                    console.warn('⚠️ Steroid Analytics pas encore chargé');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+

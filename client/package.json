@@ -1,0 +1,13 @@
+{
+  "name": "steroid-analytics-client",
+  "version": "1.0.0",
+  "description": "Client-side tracking script for Steroid Analytics",
+  "main": "dist/steroid-analytics.js",
+  "scripts": {
+    "build": "tsc && node build.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
+

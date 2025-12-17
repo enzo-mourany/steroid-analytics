@@ -1,0 +1,14 @@
+node_modules
+dist
+*.log
+*.db-journal
+.env
+.env.local
+.git
+.gitignore
+README.md
+examples
+client
+dashboard-integration
+*.md
+
