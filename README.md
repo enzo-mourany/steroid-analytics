@@ -7,6 +7,14 @@ Backend de collecte d'événements pour le tracking web, avec script client de t
 - **Backend** : API Node.js/TypeScript pour recevoir et stocker les événements
 - **Client** : Script JavaScript à intégrer dans les sites web pour tracker les événements
 
+## 🚀 Déploiement
+
+Le backend peut être déployé gratuitement sur [Render](https://render.com), [Railway](https://railway.app), ou [Fly.io](https://fly.io).
+
+Voir `DEPLOYMENT.md` pour les instructions détaillées et `DEPLOY_QUICK_START.md` pour un démarrage rapide.
+
+**Après déploiement** : Voir `NEXT_STEPS.md` pour les prochaines étapes.
+
 ## Fonctionnalités
 
 - ✅ Ingestion d'événements multi-types (pageview, custom, identify, payment, external_link)

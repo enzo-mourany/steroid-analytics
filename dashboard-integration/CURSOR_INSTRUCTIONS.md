@@ -13,7 +13,7 @@ Intègre le backend Steroid Analytics dans ce projet Next.js pour afficher les d
 
 1. **Crée ou modifie `.env.local`** pour ajouter :
 ```env
-ANALYTICS_BACKEND_URL=http://localhost:3000
+ANALYTICS_BACKEND_URL=https://steroid-analytics-backend.onrender.com/
 ```
 
 ## TYPES TYPESCRIPT
@@ -163,6 +163,8 @@ export async function GET(request: NextRequest) {
 ```
 
 **Crée `app/api/analytics/stats/route.ts`** :
+
+Copie le contenu depuis `dashboard-integration/app-router/route-stats.ts` ou utilise le code suivant :
 
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';

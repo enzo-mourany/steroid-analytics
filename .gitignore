@@ -6,3 +6,5 @@ dist/
 .env
 .DS_Store
 
+# Frontend de test (local uniquement, ne pas déployer)
+test-frontend/

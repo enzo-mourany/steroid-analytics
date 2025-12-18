@@ -270,6 +270,32 @@ export class EventRepository {
     };
   }
 
+  getActiveStats(websiteId: string, windowMinutes: number = 5): { activeSessions: number; activeVisitors: number } {
+    const now = Math.floor(Date.now() / 1000);
+    const windowStart = now - (windowMinutes * 60);
+
+    // Sessions actives (avec événements dans la fenêtre)
+    const activeSessionsStmt = this.db.prepare(`
+      SELECT COUNT(DISTINCT session_id) as count FROM events
+      WHERE website_id = ? AND stored = 1
+      AND event_timestamp >= ?
+    `);
+    const activeSessions = (activeSessionsStmt.get(websiteId, windowStart) as { count: number }).count;
+
+    // Visiteurs actifs (avec événements dans la fenêtre)
+    const activeVisitorsStmt = this.db.prepare(`
+      SELECT COUNT(DISTINCT visitor_id) as count FROM events
+      WHERE website_id = ? AND stored = 1
+      AND event_timestamp >= ?
+    `);
+    const activeVisitors = (activeVisitorsStmt.get(websiteId, windowStart) as { count: number }).count;
+
+    return {
+      activeSessions,
+      activeVisitors
+    };
+  }
+
   checkPageviewThrottle(visitorId: string, path: string, windowStart: number): boolean {
     const stmt = this.db.prepare(`
       SELECT COUNT(*) as count FROM pageview_throttle

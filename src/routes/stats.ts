@@ -5,6 +5,51 @@ import { EventRepository } from '../database/schema';
 export function createStatsRouter(eventRepository: EventRepository): Router {
   const router = Router();
 
+  // GET /stats/active - Statistiques d'utilisateurs actifs en temps réel
+  router.get('/active', (req: Request, res: Response) => {
+    try {
+      const websiteId = req.query.websiteId as string;
+      const windowMinutes = req.query.windowMinutes 
+        ? parseInt(req.query.windowMinutes as string) 
+        : 5; // Par défaut 5 minutes
+
+      if (!websiteId) {
+        const response: ApiResponse = {
+          success: false,
+          error: 'websiteId est requis'
+        };
+        return res.status(400).json(response);
+      }
+
+      const activeStats = eventRepository.getActiveStats(websiteId, windowMinutes);
+
+      const response: ApiResponse<{
+        websiteId: string;
+        activeSessions: number;
+        activeVisitors: number;
+        windowMinutes: number;
+        timestamp: number;
+      }> = {
+        success: true,
+        data: {
+          websiteId,
+          activeSessions: activeStats.activeSessions,
+          activeVisitors: activeStats.activeVisitors,
+          windowMinutes,
+          timestamp: Math.floor(Date.now() / 1000)
+        }
+      };
+
+      return res.json(response);
+    } catch (error: any) {
+      const response: ApiResponse = {
+        success: false,
+        error: error.message || 'Erreur lors du calcul des statistiques actives'
+      };
+      return res.status(500).json(response);
+    }
+  });
+
   // GET /stats - Statistiques agrégées
   router.get('/', (req: Request, res: Response) => {
     try {
